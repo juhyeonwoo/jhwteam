@@ -86,6 +86,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="container-fluid bg-dark text-white py-3">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="text-center" id="clock"></h4>
+      <div class="text-center">
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(-8)">미국 (LA)</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(-5)">미국 (NY)</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(1)">영국</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(2)">프랑스</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(9)">한국</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(8)">중국</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(5.5)">인도</button>
+        <button class="btn btn-primary mt-3" onclick="updateClockByTimeZone(10)">호주</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   function updateClock() {
     var now = new Date();
@@ -96,10 +114,23 @@
     $('#clock').text(timeString);
   }
 
+  function updateClockByTimeZone(timezoneOffset) {
+    var now = new Date();
+    var currentUtcTimestamp = now.getTime() + (now.getTimezoneOffset() * 60000);
+    var targetTimezoneTimestamp = currentUtcTimestamp + (timezoneOffset * 3600000);
+    var targetTimezoneDate = new Date(targetTimezoneTimestamp);
+    var hours = targetTimezoneDate.getHours();
+    var minutes = targetTimezoneDate.getMinutes();
+    var seconds = targetTimezoneDate.getSeconds();
+    var timeString = hours + ':' + minutes + ':' + seconds;
+    $('#clock').text(timeString);
+  }
+
   $(document).ready(function() {
     setInterval(updateClock, 1000);
   });
 </script>
+
 
 <footer style="display: flex; justify-content: center; margin-top: 10px; margin-bottom: 10px;">
   <p>Copyright &copy; 2023, 중부대학교 정보보호학과 91709394 주현우</p>
